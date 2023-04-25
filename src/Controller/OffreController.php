@@ -68,7 +68,7 @@ class OffreController extends AbstractController
         $form->handleRequest($request);
         
         $email = (new Email())
-        ->from('selim.boulaaba@esprit.tn')
+        ->from('ons.hamdi@esprit.tn')
         ->to('ons.hamdi@esprit.tn')
         ->subject('bienvenue dans notre espace client!')
         ->html('<p>Merci pour votre réclamation on va vous contactez lorsque notre équipe technique sera disponible!</p>');
@@ -223,21 +223,5 @@ class OffreController extends AbstractController
         return $this->redirectToRoute('app_offre_index', [], Response::HTTP_SEE_OTHER);
     }
 
-      //RECHERCHE :
-         
-    #[Route('/chercher', name: 'app_offre_recherche', methods: ['POST'])]
-    public function chercher(\Symfony\Component\HttpFoundation\Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $requestString = $request->get('q');// ooofkdokfdfdf
-        $comp =  $em->getRepository(Competition::class)->rechercheAvance($requestString);
-        if(!$comp) {
-            $result['comp']['error'] = "Competition de ce Nom non trouvé :( ";
-        } else {
-            $result['comp'] = $this->getRealEntities($comp);
-        }
-        return new Response(json_encode($result));
-    }
-    
-    
+     
 }
